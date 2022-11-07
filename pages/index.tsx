@@ -1,18 +1,19 @@
 import Head from 'next/head'
 import {useEffect, useState} from 'react'
+import Link from "next/link";
 
 export default function Home(initialData) {
     const [formInputs, setFormInputs] = useState()
     const [searchTerm, setSearchTerm] = useState('cats')
     const [searchResults, setSearchResults] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         setSearchResults(initialData.catGiphys.data)
     }, [initialData])
 
     const handleInputs = (event) => {
         let {name, value} = event.target
-        setFormInputs({ ...formInputs, [name]: value });
+        setFormInputs({...formInputs, [name]: value});
     }
 
     const search = async (event) => {
@@ -27,22 +28,32 @@ export default function Home(initialData) {
         <div className='container'>
             <Head>
                 <title>Create Next App</title>
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="/favicon.ico"/>
                 <link rel="stylesheet" href="/styles.css"/>
             </Head>
 
             <h1>Giphy Search App</h1>
 
             <form onSubmit={search}>
-                <input name="searchTerm" onChange={handleInputs} type="text" required />
+                <input name="searchTerm" onChange={handleInputs} type="text" required/>
                 <button>Search</button>
             </form>
 
             <h1>Search results for: {searchTerm}</h1>
 
+            <p>Share this search with others:
+
+                <Link
+                    href="/search/[pid]"
+                    as={`/search/${searchTerm}`}>
+                    {`http://localhost:3000/search/${searchTerm}`}
+                </Link>
+
+            </p>
+
             <div className="giphy-search-results-grid">
                 {searchResults.map((each, index) => {
-                    return(
+                    return (
                         <div key={index}>
                             <h3>{each.title}</h3>
                             <img src={each.images.original.url} alt={each.title}/>
