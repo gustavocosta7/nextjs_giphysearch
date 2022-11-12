@@ -4,7 +4,7 @@ import Link from "next/link";
 import Footer from "../components/Footer";
 import Image from 'next/image'
 
-export default function Home(initialData) {
+export default function Home(initialData: any) {
     const [formInputs, setFormInputs] = useState()
     const [searchTerm, setSearchTerm] = useState('cats')
     const [searchResults, setSearchResults] = useState([])
@@ -13,16 +13,21 @@ export default function Home(initialData) {
         setSearchResults(initialData.catGiphys.data)
     }, [initialData])
 
-    const handleInputs = (event) => {
+    const handleInputs = (event: any) => {
         let {name, value} = event.target
+        // @ts-ignore
         setFormInputs({...formInputs, [name]: value});
     }
 
-    const search = async (event) => {
+    const search = async (event: any) => {
         event.preventDefault()
+        {/*// @ts-ignore*/
+        }
         let giphys = await fetch(`https://api.giphy.com/v1/gifs/search?q=${formInputs.searchTerm}&api_key=NWghl8uyztc9wCuPR1CQiINN8rU9IahT&limit=6`)
         giphys = await giphys.json()
+        // @ts-ignore
         setSearchResults(giphys.data)
+        // @ts-ignore
         setSearchTerm(formInputs.searchTerm)
     }
 
@@ -31,7 +36,8 @@ export default function Home(initialData) {
             <div className='container'>
                 <Head>
                     <title>Giphy Search App</title>
-                    <meta name="description" content="Love giphys? We do too. Use our advanced giphy search to find the perfect giphy for any occation"></meta>
+                    <meta name="description"
+                          content="Love giphys? We do too. Use our advanced giphy search to find the perfect giphy for any occation"></meta>
                     <link rel="icon" href="/favicon.ico"/>
                     <link rel="stylesheet" href="/styles.css"/>
                 </Head>
@@ -39,7 +45,6 @@ export default function Home(initialData) {
                     <Image
                         src="/logo.png"
                         alt="logo"
-                        unsized
                         width={50}
                         height={150}
                     />
@@ -67,7 +72,9 @@ export default function Home(initialData) {
                     {searchResults.map((each, index) => {
                         return (
                             <div key={index}>
+                                {/*// @ts-ignore*/}
                                 <h3>{each.title}</h3>
+                                {/*// @ts-ignore*/}
                                 <img src={each.images.original.url} alt={each.title}/>
                             </div>
                         )
