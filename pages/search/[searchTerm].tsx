@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useRouter} from "next/router";
 import Link from "next/link";
+import Footer from "../../components/Footer";
 
 export default function Search (initialData) {
     const router = useRouter();
@@ -8,7 +9,8 @@ export default function Search (initialData) {
     return(
         <>
             <Head>
-                <title>Search</title>
+                <title>Search results for: {router.query.searchTerm}</title>
+                <meta name="description" content={initialData.giphys.map((each, index) => each.title + ' ')}></meta>
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="stylesheet" href="/styles.css"/>
             </Head>
@@ -25,6 +27,7 @@ export default function Search (initialData) {
                 )
             })}
             </div>
+            <Footer/>
         </>
     )
 }
