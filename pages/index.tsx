@@ -21,8 +21,7 @@ export default function Home(initialData: any) {
 
     const search = async (event: any) => {
         event.preventDefault()
-        {/*// @ts-ignore*/
-        }
+        //@ts-ignore
         let giphys = await fetch(`https://api.giphy.com/v1/gifs/search?q=${formInputs.searchTerm}&api_key=NWghl8uyztc9wCuPR1CQiINN8rU9IahT&limit=6`)
         giphys = await giphys.json()
         // @ts-ignore
